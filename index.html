@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Pengawas Cleaning Service - RSUD Talaud</title>
+    <style>
+        /* --- Gaya Umum --- */
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: #e9ecef;
+            margin: 0;
+            padding: 20px;
+            color: var(--dark-color);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: auto;
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            margin: 0;
+            color: var(--primary-color);
+        }
+
+        header p {
+            margin: 5px 0 0;
+            color: var(--secondary-color);
+        }
+
+        /* --- Layout untuk Form dan Dashboard --- */
+        .content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .form-section, .dashboard-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        /* --- Gaya Form --- */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Penting agar padding tidak menambah lebar */
+        }
+
+        .criteria-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: var(--light-color);
+        }
+        
+        .criteria-item label {
+            font-weight: normal;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: var(--dark-color);
+        }
+        .btn-warning:hover {
+            background-color: #e0a800;
+        }
+
+        .btn-info {
+            background-color: var(--info-color);
+        }
+        .btn-info:hover {
+            background-color: #138496;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary-color);
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .action-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* --- Gaya Dashboard --- */
+        .dashboard-controls {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+            word-wrap: break-word; /* Mencegah teks panjang merusak layout */
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .no-data {
+            text-align: center;
+            color: var(--secondary-color);
+            font-style: italic;
+        }
+
+        /* --- Notifikasi --- */
+        .notification {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            display: none;
+        }
+        .notification.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .notification.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* --- Gaya Khusus untuk Print --- */
+        @media print {
+            /* Sembunyikan elemen yang tidak perlu */
+            body {
+                background-color: #fff;
+                padding: 0;
+                font-size: 12pt;
+            }
+            .form-section,
+            .dashboard-controls,
+            .notification {
+                display: none !important;
+            }
+            .container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            header {
+                border-bottom: 1px solid #000;
+                padding-bottom: 10px;
+                margin-bottom: 20px;
+            }
+            header h1 {
+                font-size: 18pt;
+                color: #000;
+                margin-bottom: 5px;
+            }
+            header p {
+                font-size: 12pt;
+                color: #000;
+            }
+            .dashboard-section {
+                width: 100%;
+            }
+            table {
+                width: 100%;
+                margin-top: 0;
+                border-collapse: collapse;
+            }
+            th, td {
+                border: 1px solid #000;
+                padding: 6px 8px;
+                text-align: left;
+            }
+            th {
+                background-color: #f2f2f2 !important; /* Warna abu-abu muda untuk header */
+                color: #000 !important;
+                font-weight: bold;
+            }
+            tr {
+                page-break-inside: avoid; /* Cegah baris terpotong halaman */
+            }
+            /* Sembunyikan kolom Aksi saat print */
+            #tabelLaporan th:last-child,
+            #tabelLaporan td:last-child {
+                display: none;
+            }
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                flex-direction: column;
+            }
+            table {
+                font-size: 14px;
+            }
+            th, td {
+                padding: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>SISTEM LAPORAN PENGAWAS LAPANGAN</h1>
+            <p>Cleaning Service - RSUD Kabupaten Talaud</p>
+        </header>
+
+        <div class="notification" id="notificationBox"></div>
+
+        <main class="content-wrapper">
+            <!-- --- SEKSI INPUT FORM --- -->
+            <section class="form-section">
+                <h2>Form Input Laporan Harian</h2>
+                <form id="laporanForm">
+                    <div class="form-group">
+                        <label for="tanggal">Tanggal Laporan</label>
+                        <input type="date" id="tanggal" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="namaPengawas">Nama Pengawas</label>
+                        <input type="text" id="namaPengawas" placeholder="Masukkan nama pengawas" value="Jhosua V. Malendes" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="shift">Shift</label>
+                        <select id="shift" required>
+                            <option value="">-- Pilih Shift --</option>
+                            <option value="Pagi">Pagi</option>
+                            <option value="Sore">Sore</option>
+                            <!-- Opsi Malam dikembalikan -->
+                            <option value="Malam">Malam</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lokasi">Lokasi / Ruangan</label>
+                        <select id="lokasi" required>
+                            <option value="">-- Pilih Lokasi --</option>
+                            <option value="IGD">Instalasi Gawat Darurat (IGD)</option>
+                            <option value="Pendaftaran">Pendaftaran</option>
+                            <option value="Kasir">Kasir</option>
+                            <option value="Poliklinik">Poliklinik</option>
+                            <option value="Ruang Rawat Inap Anggrek">Ruang Rawat Inap Anggrek</option>
+                            <option value="Ruang Rawat Inap Bougenville">Ruang Rawat Inap Bougenville</option>
+                            <option value="Ruang Rawat Inap Crysant">Ruang Rawat Inap Crysant</option>
+                            <option value="VIP">VIP</option>
+                            <option value="ICU">ICU</option>
+                            <option value="Ruang Anak">Ruang Anak</option>
+                            <option value="Isolasi">Isolasi</option>
+                            <option value="Ruang Operasi">Ruang Operasi</option>
+                            <option value="Ruang Bersalin">Ruang Bersalin</option>
+                            <option value="Lab/Patologi Anatomi">Laboratorium/Patologi Anatomi</option>
+                            <option value="Radiologi">Radiologi</option>
+                            <option value="Ruang Bayi">Ruang Bayi</option>
+                            <option value="Instalasi Farmasi">Instalasi Farmasi</option>
+                            <option value="Dapur/Gizi">Dapur/Gizi</option>
+                            <option value="Binatu">Binatu</option>
+                            <option value="Kantor Direktur">Kantor Direktur</option>
+                            <option value="Halaman & Taman">Halaman & Taman</option>
+                            <option value="IPAL">IPAL</option>
+                            <option value="IPSRS">IPSRS</option>
+                            <option value="Pemulasaran Jenazah">Pemulasaran Jenazah</option>
+                            <option value="Seluruh Area (Pengangkut Sampah)">Seluruh Area (Pengangkut Sampah)</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="namaPetugas">Nama Petugas Cleaning Service</label>
+                        <select id="namaPetugas" required>
+                            <option value="">-- Pilih Petugas --</option>
+                            <option value="Ahnes Riung">Ahnes Riung</option>
+                            <option value="Ahusta Magenda">Ahusta Magenda</option>
+                            <option value="Akler A. J. Tatuu">Akler A. J. Tatuu</option>
+                            <option value="Alfrida Riung">Alfrida Riung</option>
+                            <option value="Alfrince Lariwu">Alfrince Lariwu</option>
+                            <option value="Alfrit Losoh">Alfrit Losoh</option>
+                            <option value="Allan D. Lalandos">Allan D. Lalandos</option>
+                            <option value="Anitje Magenda">Anitje Magenda</option>
+                            <option value="Asni L. Nebuntu">Asni L. Nebuntu</option>
+                            <option value="Aster Waloni">Aster Waloni</option>
+                            <option value="Beatrix D. S. Amody">Beatrix D. S. Amody</option>
+                            <option value="Benyamin Gambe">Benyamin Gambe</option>
+                            <option value="Christofel A. Tamodia">Christofel A. Tamodia</option>
+                            <option value="Dedi F. Humapi">Dedi F. Humapi</option>
+                            <option value="Dina Misah">Dina Misah</option>
+                            <option value="Estepin Panaha">Estepin Panaha</option>
+                            <option value="Herintje Apita">Herintje Apita</option>
+                            <option value="Hernai S. Tine">Hernai S. Tine</option>
+                            <option value="Imelda Lahingide">Imelda Lahingide</option>
+                            <option value="Inry Malensang">Inry Malensang</option>
+                            <option value="Jhosua V. Malendes">Jhosua V. Malendes</option>
+                            <option value="Jouns Solung">Jouns Solung</option>
+                            <option value="Junarmi Ganap">Junarmi Ganap</option>
+                            <option value="Junitje Pasiak">Junitje Pasiak</option>
+                            <option value="Krismaryanto Andalangi">Krismaryanto Andalangi</option>
+                            <option value="Kristiyanti Adam">Kristiyanti Adam</option>
+                            <option value="Marike Misah">Marike Misah</option>
+                            <option value="Meliana Talugke">Meliana Talugke</option>
+                            <option value="Melki Tumambo">Melki Tumambo</option>
+                            <option value="Meyer Hana">Meyer Hana</option>
+                            <option value="Miske Bambulu">Miske Bambulu</option>
+                            <option value="Noldi Magenda">Noldi Magenda</option>
+                            <option value="Ribka Lalandos">Ribka Lalandos</option>
+                            <option value="Rosita Mamonto">Rosita Mamonto</option>
+                            <option value="Sepertina Maararo">Sepertina Maararo</option>
+                            <option value="Seprianus Taaweran">Seprianus Taaweran</option>
+                            <option value="Seylia Eka Putri Binei">Seylia Eka Putri Binei</option>
+                            <option value="Steflianto Lesi">Steflianto Lesi</option>
+                            <option value="Steivra M. S. Saripada">Steivra M. S. Saripada</option>
+                            <option value="Veronica Mamonto">Veronica Mamonto</option>
+                            <option value="Yanasta Mangalo">Yanasta Mangalo</option>
+                            <option value="Yoce Ria">Yoce Ria</option>
+                            <option value="Yulin Mamusung">Yulin Mamusung</option>
+                            <option value="Yulin R. Riung">Yulin R. Riung</option>
+                            <option value="Yulista Silaa">Yulista Silaa</option>
+                            <option value="Yunice D. Maliatja">Yunice D. Maliatja</option>
+                            <option value="Yus Tamodia">Yus Tamodia</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Kriteria Kebersihan</label>
+                        <div class="criteria-group">
+                            <div class="criteria-item"><input type="checkbox" id="lantai" name="kriteria" value="Lantai" checked> <label for="lantai">Lantai</label></div>
+                            <div class="criteria-item"><input type="checkbox" id="dindingKaca" name="kriteria" value="Dinding/Kaca" checked> <label for="dindingKaca">Dinding/Kaca</label></div>
+                            <div class="criteria-item"><input type="checkbox" id="kamarMandi" name="kriteria" value="Kamar Mandi/WC" checked> <label for="kamarMandi">Kamar Mandi/WC</label></div>
+                            <div class="criteria-item"><input type="checkbox" id="sampah" name="kriteria" value="Tempat Sampah" checked> <label for="sampah">Tempat Sampah</label></div>
+                            <div class="criteria-item"><input type="checkbox" id="peralatan" name="kriteria" value="Peralatan" checked> <label for="peralatan">Peralatan</label></div>
+                            <div class="criteria-item"><input type="checkbox" id="bau" name="kriteria" value="Tidak Bau" checked> <label for="bau">Tidak Bau</label></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="skalaPenilaian">Skala Penilaian Keseluruhan</label>
+                        <select id="skalaPenilaian" required>
+                            <option value="">-- Pilih Skala --</option>
+                            <option value="Sangat Baik">Sangat Baik</option>
+                            <option value="Baik">Baik</option>
+                            <option value="Cukup">Cukup</option>
+                            <option value="Kurang">Kurang</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="catatan">Catatan / Temuan</label>
+                        <textarea id="catatan" rows="4" placeholder="Masukkan catatan penting atau temuan di lapangan..."></textarea>
+                    </div>
+
+                    <button type="submit">Simpan Laporan</button>
+                </form>
+            </section>
+
+            <!-- --- SEKSI DASHBOARD --- -->
+            <section class="dashboard-section">
+                <h2>Dashboard Data Laporan</h2>
+                
+                <div class="dashboard-controls">
+                    <button id="exportCsvBtn" class="btn-success">Export ke CSV</button>
+                    <button id="importCsvBtn" class="btn-warning">Import dari CSV</button>
+                    <button id="exportJsonBtn" class="btn-info">Export ke JSON</button>
+                    <button id="importJsonBtn" class="btn-info">Import dari JSON</button>
+                    <button id="updateJsonBtn" class="btn-danger">Update dari JSON (Ganti Data)</button>
+                    <button id="printBtn" class="btn-secondary">Cetak Laporan</button>
+                </div>
+
+                <!-- Input file disembunyikan dan dipicu oleh tombol -->
+                <input type="file" id="importCsvFile" accept=".csv" style="display: none;">
+                <input type="file" id="importJsonFile" accept=".json" style="display: none;">
+                <input type="file" id="updateJsonFile" accept=".json" style="display: none;">
+
+                <table id="tabelLaporan">
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Pengawas</th>
+                            <th>Shift</th>
+                            <th>Lokasi</th>
+                            <th>Petugas</th>
+                            <th>Penilaian</th>
+                            <th>Catatan</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataTabel">
+                        <!-- Data akan dimuat di sini oleh JavaScript -->
+                        <tr>
+                            <td colspan="8" class="no-data">Belum ada data laporan.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- ELEMEN DOM ---
+        const form = document.getElementById('laporanForm');
+        const tabelBody = document.getElementById('dataTabel');
+        const exportCsvBtn = document.getElementById('exportCsvBtn');
+        const importCsvBtn = document.getElementById('importCsvBtn');
+        const importCsvFile = document.getElementById('importCsvFile');
+        const exportJsonBtn = document.getElementById('exportJsonBtn');
+        const importJsonBtn = document.getElementById('importJsonBtn');
+        const importJsonFile = document.getElementById('importJsonFile');
+        const updateJsonBtn = document.getElementById('updateJsonBtn');
+        const updateJsonFile = document.getElementById('updateJsonFile');
+        const printBtn = document.getElementById('printBtn');
+        const notificationBox = document.getElementById('notificationBox');
+        const tanggalInput = document.getElementById('tanggal');
+
+        // --- KONFIGURASI LOCAL STORAGE ---
+        const LAPORAN_KEY = 'laporanCleaningServiceRSUDTalaud';
+
+        // --- FUNSI PEMBANTU ---
+        function showNotification(message, type = 'success') {
+            notificationBox.textContent = message;
+            notificationBox.className = `notification ${type}`;
+            notificationBox.style.display = 'block';
+            setTimeout(() => {
+                notificationBox.style.display = 'none';
+            }, 4000);
+        }
+
+        // --- FUNSI UTAMA ---
+
+        // 1. AMBIL DATA DARI LOCAL STORAGE
+        function ambilDataDariStorage() {
+            const data = localStorage.getItem(LAPORAN_KEY);
+            return data ? JSON.parse(data) : [];
+        }
+
+        // 2. SIMPAN DATA KE LOCAL STORAGE
+        function simpanDataKeStorage(data) {
+            localStorage.setItem(LAPORAN_KEY, JSON.stringify(data));
+        }
+
+        // 3. TAMPILKAN DATA KE TABEL DASHBOARD
+        function tampilkanData() {
+            const laporan = ambilDataDariStorage();
+            tabelBody.innerHTML = ''; // Kosongkan tabel dulu
+
+            if (laporan.length === 0) {
+                tabelBody.innerHTML = '<tr><td colspan="8" class="no-data">Belum ada data laporan.</td></tr>';
+                return;
+            }
+
+            // Urutkan data dari yang terbaru
+            laporan.sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
+
+            laporan.forEach((item, index) => {
+                const baris = document.createElement('tr');
+                baris.innerHTML = `
+                    <td>${item.tanggal}</td>
+                    <td>${item.namaPengawas}</td>
+                    <td>${item.shift}</td>
+                    <td>${item.lokasi}</td>
+                    <td>${item.namaPetugas}</td>
+                    <td>${item.skalaPenilaian}</td>
+                    <td>${item.catatan}</td>
+                    <td><button class="btn-danger" onclick="hapusData(${index})">Hapus</button></td>
+                `;
+                tabelBody.appendChild(baris);
+            });
+        }
+
+        // 4. HAPUS DATA
+        function hapusData(index) {
+            if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+                let laporan = ambilDataDariStorage();
+                laporan.splice(index, 1);
+                simpanDataKeStorage(laporan);
+                tampilkanData();
+                showNotification('Data berhasil dihapus.', 'success');
+            }
+        }
+        window.hapusData = hapusData;
+
+        // 5. EXPORT DATA KE CSV
+        function exportToCSV() {
+            const laporan = ambilDataDariStorage();
+            if (laporan.length === 0) {
+                showNotification('Tidak ada data untuk diekspor.', 'error');
+                return;
+            }
+            const headers = ['Tanggal', 'Nama Pengawas', 'Shift', 'Lokasi', 'Nama Petugas', 'Kriteria', 'Skala Penilaian', 'Catatan'];
+            const rows = laporan.map(item => [
+                item.tanggal, item.namaPengawas, item.shift, item.lokasi, item.namaPetugas,
+                `"${item.kriteria.join('; ')}"`, // Gabungkan kriteria dengan ;
+                item.skalaPenilaian,
+                `"${item.catatan.replace(/"/g, '""')}"` // Escape double quotes
+            ]);
+            let csvContent = headers.join(',') + '\n' + rows.map(e => e.join(',')).join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `laporan_cleaning_service_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showNotification('Data berhasil diekspor ke file CSV.', 'success');
+        }
+
+        // 6. IMPORT DATA DARI CSV
+        function importFromCSV(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const text = e.target.result;
+                    const lines = text.split('\n');
+                    const newLaporan = [];
+                    for (let i = 1; i < lines.length; i++) {
+                        const line = lines[i].trim();
+                        if (line) {
+                            const values = [];
+                            let current = ''; let inQuotes = false;
+                            for (let char of line) {
+                                if (char === '"' && (inQuotes || current === '')) { inQuotes = !inQuotes; }
+                                else if (char === ',' && !inQuotes) { values.push(current.trim()); current = ''; }
+                                else { current += char; }
+                            }
+                            values.push(current.trim());
+                            if (values.length >= 8) {
+                                const kriteriaString = values[5].replace(/^"|"$/g, '');
+                                const kriteriaArray = kriteriaString.split(';').map(k => k.trim());
+                                newLaporan.push({
+                                    tanggal: values[0], namaPengawas: values[1], shift: values[2], lokasi: values[3],
+                                    namaPetugas: values[4], kriteria: kriteriaArray, skalaPenilaian: values[6],
+                                    catatan: values[7].replace(/^"|"$/g, '').replace(/""/g, '"')
+                                });
+                            }
+                        }
+                    }
+                    if (newLaporan.length > 0) {
+                        const existingLaporan = ambilDataDariStorage();
+                        const combinedLaporan = [...existingLaporan, ...newLaporan];
+                        simpanDataKeStorage(combinedLaporan);
+                        tampilkanData();
+                        showNotification(`${newLaporan.length} data berhasil diimpor dari CSV.`, 'success');
+                    } else {
+                        showNotification('File CSV tidak valid atau tidak mengandung data.', 'error');
+                    }
+                } catch (error) {
+                    showNotification('Gagal memproses file CSV. Pastikan formatnya benar.', 'error');
+                }
+            };
+            reader.readAsText(file);
+            importCsvFile.value = '';
+        }
+
+        //7. EXPORT DATA KE JSON
+        function exportToJSON() {
+            const laporan = ambilDataDariStorage();
+            if (laporan.length === 0) {
+                showNotification('Tidak ada data untuk diekspor.', 'error');
+                return;
+            }
+            const dataStr = JSON.stringify(laporan, null, 2); // Pretty-print JSON
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `laporan_cleaning_service_${new Date().toISOString().split('T')[0]}.json`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showNotification('Data berhasil diekspor ke file JSON.', 'success');
+        }
+
+        // 8. IMPORT DATA DARI JSON (FITUR LAMA)
+        function importFromJSON(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    
+                    if (!Array.isArray(importedData)) {
+                        throw new Error("File JSON tidak berisi array data.");
+                    }
+
+                    if (importedData.length > 0) {
+                        const existingLaporan = ambilDataDariStorage();
+                        const combinedLaporan = [...existingLaporan, ...importedData];
+                        simpanDataKeStorage(combinedLaporan);
+                        tampilkanData();
+                        showNotification(`${importedData.length} data berhasil diimpor dan digabungkan.`, 'success');
+                    } else {
+                        showNotification('File JSON kosong.', 'error');
+                    }
+                } catch (error) {
+                    console.error(error);
+                    showNotification('Gagal memproses file JSON. Pastikan file valid dan berisi data laporan.', 'error');
+                }
+            };
+            reader.readAsText(file);
+            importJsonFile.value = ''; // Reset input
+        }
+
+        // 9. FITUR UPDATE DATA DARI JSON (GANTI)
+        function updateFromJSON(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const isConfirmed = confirm('PERINGATAN: Tindakan ini akan mengganti SELURUH data laporan yang ada dengan data dari file ini. Data lama yang tidak ada di file akan HILANG. Apakah Anda yakin?');
+            if (!isConfirmed) {
+                updateJsonFile.value = ''; // Reset input jika batal
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    
+                    if (!Array.isArray(importedData)) {
+                        throw new Error("File JSON tidak berisi array data.");
+                    }
+
+                    simpanDataKeStorage(importedData);
+                    tampilkanData();
+                    showNotification(`Data berhasil diperbarui. Sekarang terdapat ${importedData.length} laporan aktif.`, 'success');
+
+                } catch (error) {
+                    console.error(error);
+                    showNotification('Gagal memproses file JSON. Pastikan file valid dan berisi data laporan.', 'error');
+                }
+            };
+            reader.readAsText(file);
+            updateJsonFile.value = ''; // Reset input
+        }
+
+
+        // --- EVENT LISTENER ---
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const kriteriaTerpilih = Array.from(document.querySelectorAll('input[name="kriteria"]:checked')).map(cb => cb.value);
+            const laporanBaru = {
+                tanggal: tanggalInput.value,
+                namaPengawas: document.getElementById('namaPengawas').value,
+                shift: document.getElementById('shift').value,
+                lokasi: document.getElementById('lokasi').value,
+                namaPetugas: document.getElementById('namaPetugas').value,
+                kriteria: kriteriaTerpilih,
+                skalaPenilaian: document.getElementById('skalaPenilaian').value,
+                catatan: document.getElementById('catatan').value,
+            };
+            const laporan = ambilDataDariStorage();
+            laporan.push(laporanBaru);
+            simpanDataKeStorage(laporan);
+            tampilkanData();
+            form.reset();
+            // Reset nilai default setelah submit
+            document.getElementById('namaPengawas').value = 'Jhosua V. Malendes';
+            tanggalInput.valueAsDate = new Date();
+            showNotification('Laporan berhasil disimpan!', 'success');
+        });
+
+        exportCsvBtn.addEventListener('click', exportToCSV);
+        importCsvBtn.addEventListener('click', () => importCsvFile.click());
+        importCsvFile.addEventListener('change', importFromCSV);
+        
+        // Event Listener untuk JSON
+        exportJsonBtn.addEventListener('click', exportToJSON);
+        importJsonBtn.addEventListener('click', () => importJsonFile.click());
+        importJsonFile.addEventListener('change', importFromJSON);
+
+        // EVENT LISTENER UNTUK FITUR UPDATE
+        updateJsonBtn.addEventListener('click', () => updateJsonFile.click());
+        updateJsonFile.addEventListener('change', updateFromJSON);
+
+        // EVENT LISTENER UNTUK FITUR PRINT
+        printBtn.addEventListener('click', () => {
+            window.print();
+        });
+
+        // --- INISIALISASI ---
+        tanggalInput.valueAsDate = new Date();
+        tampilkanData();
+    });
+</script>
+
+</body>
+</html>
