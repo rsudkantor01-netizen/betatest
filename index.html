@@ -3,783 +3,1124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan Pengawas Cleaning Service - RSUD Talaud</title>
+    <title>RSUD Kepulauan Talaud - Rumah Sakit Umum Daerah</title>
     <style>
-        /* --- Gaya Umum --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
-            --primary-color: #007bff;
-            --secondary-color: #6c757d;
-            --success-color: #28a745;
-            --danger-color: #dc3545;
-            --warning-color: #ffc107;
-            --info-color: #17a2b8;
-            --light-color: #f8f9fa;
-            --dark-color: #343a40;
-            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --primary-red: #DC241F;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --dark-gray: #333333;
+            --border-gray: #E5E5E5;
+            --text-gray: #666666;
+            --accent-red: #B51C1C;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: var(--font-family);
-            background-color: #e9ecef;
-            margin: 0;
-            padding: 20px;
-            color: var(--dark-color);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background-color: var(--white);
+            color: var(--dark-gray);
+            line-height: 1.6;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: auto;
-            background-color: #fff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        /* Navbar */
+        nav {
+            background-color: var(--white);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        header {
-            text-align: center;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 15px;
-            margin-bottom: 30px;
-        }
-
-        header h1 {
-            margin: 0;
-            color: var(--primary-color);
-        }
-
-        header p {
-            margin: 5px 0 0;
-            color: var(--secondary-color);
-        }
-
-        /* --- Layout untuk Form dan Dashboard --- */
-        .content-wrapper {
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
             display: flex;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-red);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-red) 50%, var(--white) 50%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
             gap: 30px;
         }
 
-        .form-section, .dashboard-section {
-            flex: 1;
-            min-width: 300px;
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
         }
 
-        /* --- Gaya Form --- */
+        .nav-menu a:hover {
+            color: var(--primary-red);
+        }
+
+        .nav-menu a.active {
+            color: var(--primary-red);
+            border-bottom: 3px solid var(--primary-red);
+            padding-bottom: 5px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--accent-red) 100%);
+            color: var(--white);
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: var(--white);
+            color: var(--primary-red);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--white);
+            color: var(--primary-red);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 50px;
+            text-align: center;
+            color: var(--dark-gray);
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-red);
+            border-radius: 2px;
+        }
+
+        /* Stats Section */
+        .stats {
+            background-color: var(--light-gray);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .stat-number {
+            font-size: 42px;
+            font-weight: bold;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: var(--white);
+            border: 2px solid var(--border-gray);
+            border-radius: 8px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            border-color: var(--primary-red);
+            box-shadow: 0 8px 20px rgba(220, 36, 31, 0.1);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+
+        .service-card:hover .service-icon {
+            background-color: var(--primary-red);
+            color: var(--white);
+        }
+
+        .service-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--dark-gray);
+        }
+
+        .service-card p {
+            color: var(--text-gray);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Form Styles */
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-gray);
         }
 
-        input[type="text"],
-        input[type="date"],
-        input[type="time"],
-        select,
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-gray);
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            box-shadow: 0 0 0 3px rgba(220, 36, 31, 0.1);
+        }
+
         textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box; /* Penting agar padding tidak menambah lebar */
+            resize: vertical;
+            min-height: 120px;
         }
 
-        .criteria-group {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        /* Rating Stars */
+        .rating-group {
+            display: flex;
             gap: 10px;
-            border: 1px solid #ddd;
-            padding: 10px;
-            border-radius: 4px;
-            background-color: var(--light-color);
-        }
-        
-        .criteria-item label {
-            font-weight: normal;
+            align-items: center;
+            margin-top: 10px;
         }
 
-        button {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
+        .star {
+            font-size: 24px;
             cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
+            color: #ddd;
+            transition: color 0.2s ease;
         }
 
-        button:hover {
-            background-color: #0056b3;
+        .star:hover, .star.active {
+            color: var(--primary-red);
         }
 
-        .btn-danger {
-            background-color: var(--danger-color);
-        }
-        .btn-danger:hover {
-            background-color: #c82333;
-        }
-        
-        .btn-success {
-            background-color: var(--success-color);
-        }
-        .btn-success:hover {
-            background-color: #218838;
-        }
-        
-        .btn-warning {
-            background-color: var(--warning-color);
-            color: var(--dark-color);
-        }
-        .btn-warning:hover {
-            background-color: #e0a800;
+        /* Content Sections */
+        .content-box {
+            background-color: var(--light-gray);
+            padding: 40px;
+            border-radius: 8px;
+            margin: 30px 0;
         }
 
-        .btn-info {
-            background-color: var(--info-color);
-        }
-        .btn-info:hover {
-            background-color: #138496;
-        }
-        
-        .btn-secondary {
-            background-color: var(--secondary-color);
-        }
-        .btn-secondary:hover {
-            background-color: #5a6268;
+        .content-box h3 {
+            color: var(--primary-red);
+            margin-bottom: 15px;
+            font-size: 22px;
         }
 
-        .action-buttons {
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+        .content-box p {
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 10px;
         }
 
-        /* --- Gaya Dashboard --- */
-        .dashboard-controls {
+        .content-box ul {
+            margin-left: 20px;
+            color: var(--text-gray);
+        }
+
+        .content-box li {
+            margin-bottom: 8px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-gray);
+            color: var(--white);
+            padding: 60px 20px 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
             margin-bottom: 20px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+            color: var(--primary-red);
+            font-size: 18px;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+        .footer-section ul {
+            list-style: none;
         }
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px 12px;
-            text-align: left;
-            word-wrap: break-word; /* Mencegah teks panjang merusak layout */
+        .footer-section a {
+            color: #aaa;
+            text-decoration: none;
+            margin-bottom: 10px;
+            display: block;
+            transition: color 0.3s ease;
         }
 
-        th {
-            background-color: var(--primary-color);
-            color: white;
-            position: sticky;
-            top: 0;
+        .footer-section a:hover {
+            color: var(--primary-red);
         }
 
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        
-        .no-data {
+        .footer-bottom {
             text-align: center;
-            color: var(--secondary-color);
-            font-style: italic;
+            padding-top: 30px;
+            border-top: 1px solid #555;
+            color: #aaa;
         }
 
-        /* --- Notifikasi --- */
-        .notification {
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 4px;
+        /* Page Content */
+        .page {
             display: none;
         }
-        .notification.success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        .notification.error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+
+        .page.active {
+            display: block;
         }
 
-        /* --- Gaya Khusus untuk Print --- */
-        @media print {
-            /* Sembunyikan elemen yang tidak perlu */
-            body {
-                background-color: #fff;
-                padding: 0;
-                font-size: 12pt;
-            }
-            .form-section,
-            .dashboard-controls,
-            .notification {
-                display: none !important;
-            }
-            .container {
-                box-shadow: none;
-                padding: 0;
-                max-width: 100%;
-            }
-            header {
-                border-bottom: 1px solid #000;
-                padding-bottom: 10px;
-                margin-bottom: 20px;
-            }
-            header h1 {
-                font-size: 18pt;
-                color: #000;
-                margin-bottom: 5px;
-            }
-            header p {
-                font-size: 12pt;
-                color: #000;
-            }
-            .dashboard-section {
-                width: 100%;
-            }
-            table {
-                width: 100%;
-                margin-top: 0;
-                border-collapse: collapse;
-            }
-            th, td {
-                border: 1px solid #000;
-                padding: 6px 8px;
-                text-align: left;
-            }
-            th {
-                background-color: #f2f2f2 !important; /* Warna abu-abu muda untuk header */
-                color: #000 !important;
-                font-weight: bold;
-            }
-            tr {
-                page-break-inside: avoid; /* Cegah baris terpotong halaman */
-            }
-            /* Sembunyikan kolom Aksi saat print */
-            #tabelLaporan th:last-child,
-            #tabelLaporan td:last-child {
-                display: none;
-            }
-        }
-
-        /* --- Responsive Design --- */
+        /* Responsive */
         @media (max-width: 768px) {
-            .content-wrapper {
-                flex-direction: column;
-            }
-            table {
+            .nav-menu {
+                gap: 15px;
                 font-size: 14px;
             }
-            th, td {
-                padding: 6px;
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-container {
+                height: 60px;
+            }
+
+            .nav-menu {
+                gap: 10px;
+                font-size: 12px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="navigateTo('home'); return false;">
+                <div class="logo-icon">🏥</div>
+                <span>RSUD Talaud</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a onclick="navigateTo('home')" class="nav-link active">Beranda</a></li>
+                <li><a onclick="navigateTo('profil')" class="nav-link">Profil</a></li>
+                <li><a onclick="navigateTo('pelayanan')" class="nav-link">Pelayanan</a></li>
+                <li><a onclick="navigateTo('ruangan')" class="nav-link">Ruangan</a></li>
+                <li><a onclick="navigateTo('fasilitas')" class="nav-link">Fasilitas</a></li>
+                <li><a onclick="navigateTo('akreditasi')" class="nav-link">Akreditasi</a></li>
+                <li><a onclick="navigateTo('komite')" class="nav-link">Komite</a></li>
+                <li><a onclick="navigateTo('survey')" class="nav-link">Survey</a></li>
+            </ul>
+        </div>
+    </nav>
 
-    <div class="container">
-        <header>
-            <h1>SISTEM LAPORAN PENGAWAS LAPANGAN</h1>
-            <p>Cleaning Service - RSUD Kabupaten Talaud</p>
-        </header>
+    <!-- Main Content -->
+    <main>
+        <!-- BERANDA PAGE -->
+        <div id="home" class="page active">
+            <!-- Hero -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>RSUD Kepulauan Talaud</h1>
+                    <p>Rumah Sakit Umum Daerah dengan Pelayanan Kesehatan Terbaik</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="navigateTo('pelayanan')">Lihat Pelayanan</button>
+                        <button class="btn btn-secondary" onclick="navigateTo('survey')">Berikan Masukan</button>
+                    </div>
+                </div>
+            </section>
 
-        <div class="notification" id="notificationBox"></div>
+            <!-- Stats -->
+            <section class="stats section">
+                <div class="container">
+                    <h2 class="section-title">Statistik Rumah Sakit</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Pasien Per Bulan</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">150+</div>
+                            <div class="stat-label">Tenaga Medis Profesional</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">15+</div>
+                            <div class="stat-label">Jenis Layanan</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Layanan Darurat</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <main class="content-wrapper">
-            <!-- --- SEKSI INPUT FORM --- -->
-            <section class="form-section">
-                <h2>Form Input Laporan Harian</h2>
-                <form id="laporanForm">
-                    <div class="form-group">
-                        <label for="tanggal">Tanggal Laporan</label>
-                        <input type="date" id="tanggal" required>
+            <!-- Services -->
+            <section class="section">
+                <div class="container">
+                    <h2 class="section-title">Layanan Unggulan</h2>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-icon">🚑</div>
+                            <h3>Gawat Darurat</h3>
+                            <p>Pelayanan darurat 24 jam dengan peralatan canggih dan tenaga medis berpengalaman</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">🏥</div>
+                            <h3>Rawat Inap</h3>
+                            <p>Fasilitas rawat inap berkualitas dengan ruangan nyaman dan pelayanan prima</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">🔬</div>
+                            <h3>Laboratorium</h3>
+                            <p>Laboratorium modern dengan teknologi terkini untuk diagnosis akurat</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">🏨</div>
+                            <h3>Rawat Jalan</h3>
+                            <p>Klinik rawat jalan dengan dokter spesialis untuk berbagai bidang kesehatan</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">👶</div>
+                            <h3>Kebidanan</h3>
+                            <p>Pelayanan persalinan dan perawatan ibu hamil dengan standar internasional</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">💊</div>
+                            <h3>Farmasi</h3>
+                            <p>Apotek lengkap dengan obat-obatan berkualitas dan resep dari dokter</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PROFIL PAGE -->
+        <div id="profil" class="page">
+            <section class="hero" style="background: linear-gradient(135deg, #DC241F 0%, #B51C1C 100%);">
+                <div class="hero-content">
+                    <h1>Profil Rumah Sakit</h1>
+                    <p>Mengenal lebih jauh tentang RSUD Kepulauan Talaud</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="container">
+                    <h2 class="section-title">Visi & Misi</h2>
+                    <div class="content-box">
+                        <h3>🎯 Visi</h3>
+                        <p>Menjadi rumah sakit pilihan utama dengan pelayanan kesehatan berkualitas tinggi, profesional, dan terjangkau bagi masyarakat Kepulauan Talaud</p>
+                    </div>
+                    <div class="content-box">
+                        <h3>📋 Misi</h3>
+                        <ul>
+                            <li>Memberikan pelayanan kesehatan yang bermutu dan terjangkau</li>
+                            <li>Meningkatkan kompetensi tenaga kesehatan melalui pendidikan berkelanjutan</li>
+                            <li>Mengembangkan teknologi dan fasilitas kesehatan modern</li>
+                            <li>Melayani dengan sepenuh hati dan profesionalisme tinggi</li>
+                            <li>Menjaga kepercayaan masyarakat melalui transparansi dan akuntabilitas</li>
+                        </ul>
                     </div>
 
-                    <div class="form-group">
-                        <label for="namaPengawas">Nama Pengawas</label>
-                        <input type="text" id="namaPengawas" placeholder="Masukkan nama pengawas" value="Jhosua V. Malendes" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="shift">Shift</label>
-                        <select id="shift" required>
-                            <option value="">-- Pilih Shift --</option>
-                            <option value="Pagi">Pagi</option>
-                            <option value="Sore">Sore</option>
-                            <!-- Opsi Malam dikembalikan -->
-                            <option value="Malam">Malam</option>
-                        </select>
+                    <h2 class="section-title" style="margin-top: 60px;">Sejarah Singkat</h2>
+                    <div class="content-box">
+                        <p>RSUD Kepulauan Talaud didirikan pada tahun 1990 sebagai komitmen pemerintah daerah untuk meningkatkan layanan kesehatan masyarakat di Kepulauan Talaud. Sejak berdiri, rumah sakit ini terus berkembang dengan penambahan fasilitas, peralatan medis modern, dan peningkatan kualitas sumber daya manusia.</p>
+                        <p style="margin-top: 15px;">Hingga saat ini, RSUD Kepulauan Talaud telah melayani lebih dari 100,000 pasien dan terus berkomitmen untuk memberikan pelayanan kesehatan terbaik kepada masyarakat.</p>
                     </div>
 
-                    <div class="form-group">
-                        <label for="lokasi">Lokasi / Ruangan</label>
-                        <select id="lokasi" required>
-                            <option value="">-- Pilih Lokasi --</option>
-                            <option value="IGD">Instalasi Gawat Darurat (IGD)</option>
-                            <option value="Pendaftaran">Pendaftaran</option>
-                            <option value="Kasir">Kasir</option>
-                            <option value="Poliklinik">Poliklinik</option>
-                            <option value="Ruang Rawat Inap Anggrek">Ruang Rawat Inap Anggrek</option>
-                            <option value="Ruang Rawat Inap Bougenville">Ruang Rawat Inap Bougenville</option>
-                            <option value="Ruang Rawat Inap Crysant">Ruang Rawat Inap Crysant</option>
-                            <option value="VIP">VIP</option>
-                            <option value="ICU">ICU</option>
-                            <option value="Ruang Anak">Ruang Anak</option>
-                            <option value="Isolasi">Isolasi</option>
-                            <option value="Ruang Operasi">Ruang Operasi</option>
-                            <option value="Ruang Bersalin">Ruang Bersalin</option>
-                            <option value="Lab/Patologi Anatomi">Laboratorium/Patologi Anatomi</option>
-                            <option value="Radiologi">Radiologi</option>
-                            <option value="Ruang Bayi">Ruang Bayi</option>
-                            <option value="Instalasi Farmasi">Instalasi Farmasi</option>
-                            <option value="Dapur/Gizi">Dapur/Gizi</option>
-                            <option value="Binatu">Binatu</option>
-                            <option value="Kantor Direktur">Kantor Direktur</option>
-                            <option value="Halaman & Taman">Halaman & Taman</option>
-                            <option value="IPAL">IPAL</option>
-                            <option value="IPSRS">IPSRS</option>
-                            <option value="Pemulasaran Jenazah">Pemulasaran Jenazah</option>
-                            <option value="Seluruh Area (Pengangkut Sampah)">Seluruh Area (Pengangkut Sampah)</option>
-                            <option value="Lainnya">Lainnya</option>
-                        </select>
+                    <h2 class="section-title" style="margin-top: 60px;">Nilai-Nilai Inti</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div style="font-size: 40px; margin-bottom: 10px;">❤️</div>
+                            <h3>Kepedulian</h3>
+                            <p style="color: var(--text-gray); font-size: 14px;">Peduli terhadap kesejahteraan pasien</p>
+                        </div>
+                        <div class="stat-card">
+                            <div style="font-size: 40px; margin-bottom: 10px;">🤝</div>
+                            <h3>Integritas</h3>
+                            <p style="color: var(--text-gray); font-size: 14px;">Jujur dan bertanggung jawab</p>
+                        </div>
+                        <div class="stat-card">
+                            <div style="font-size: 40px; margin-bottom: 10px;">⭐</div>
+                            <h3>Keunggulan</h3>
+                            <p style="color: var(--text-gray); font-size: 14px;">Berinovasi dan berkembang</p>
+                        </div>
                     </div>
+                </div>
+            </section>
+        </div>
 
-                    <div class="form-group">
-                        <label for="namaPetugas">Nama Petugas Cleaning Service</label>
-                        <select id="namaPetugas" required>
-                            <option value="">-- Pilih Petugas --</option>
-                            <option value="Ahnes Riung">Ahnes Riung</option>
-                            <option value="Ahusta Magenda">Ahusta Magenda</option>
-                            <option value="Akler A. J. Tatuu">Akler A. J. Tatuu</option>
-                            <option value="Alfrida Riung">Alfrida Riung</option>
-                            <option value="Alfrince Lariwu">Alfrince Lariwu</option>
-                            <option value="Alfrit Losoh">Alfrit Losoh</option>
-                            <option value="Allan D. Lalandos">Allan D. Lalandos</option>
-                            <option value="Anitje Magenda">Anitje Magenda</option>
-                            <option value="Asni L. Nebuntu">Asni L. Nebuntu</option>
-                            <option value="Aster Waloni">Aster Waloni</option>
-                            <option value="Beatrix D. S. Amody">Beatrix D. S. Amody</option>
-                            <option value="Benyamin Gambe">Benyamin Gambe</option>
-                            <option value="Christofel A. Tamodia">Christofel A. Tamodia</option>
-                            <option value="Dedi F. Humapi">Dedi F. Humapi</option>
-                            <option value="Dina Misah">Dina Misah</option>
-                            <option value="Estepin Panaha">Estepin Panaha</option>
-                            <option value="Herintje Apita">Herintje Apita</option>
-                            <option value="Hernai S. Tine">Hernai S. Tine</option>
-                            <option value="Imelda Lahingide">Imelda Lahingide</option>
-                            <option value="Inry Malensang">Inry Malensang</option>
-                            <option value="Jhosua V. Malendes">Jhosua V. Malendes</option>
-                            <option value="Jouns Solung">Jouns Solung</option>
-                            <option value="Junarmi Ganap">Junarmi Ganap</option>
-                            <option value="Junitje Pasiak">Junitje Pasiak</option>
-                            <option value="Krismaryanto Andalangi">Krismaryanto Andalangi</option>
-                            <option value="Kristiyanti Adam">Kristiyanti Adam</option>
-                            <option value="Marike Misah">Marike Misah</option>
-                            <option value="Meliana Talugke">Meliana Talugke</option>
-                            <option value="Melki Tumambo">Melki Tumambo</option>
-                            <option value="Meyer Hana">Meyer Hana</option>
-                            <option value="Miske Bambulu">Miske Bambulu</option>
-                            <option value="Noldi Magenda">Noldi Magenda</option>
-                            <option value="Ribka Lalandos">Ribka Lalandos</option>
-                            <option value="Rosita Mamonto">Rosita Mamonto</option>
-                            <option value="Sepertina Maararo">Sepertina Maararo</option>
-                            <option value="Seprianus Taaweran">Seprianus Taaweran</option>
-                            <option value="Seylia Eka Putri Binei">Seylia Eka Putri Binei</option>
-                            <option value="Steflianto Lesi">Steflianto Lesi</option>
-                            <option value="Steivra M. S. Saripada">Steivra M. S. Saripada</option>
-                            <option value="Veronica Mamonto">Veronica Mamonto</option>
-                            <option value="Yanasta Mangalo">Yanasta Mangalo</option>
-                            <option value="Yoce Ria">Yoce Ria</option>
-                            <option value="Yulin Mamusung">Yulin Mamusung</option>
-                            <option value="Yulin R. Riung">Yulin R. Riung</option>
-                            <option value="Yulista Silaa">Yulista Silaa</option>
-                            <option value="Yunice D. Maliatja">Yunice D. Maliatja</option>
-                            <option value="Yus Tamodia">Yus Tamodia</option>
-                        </select>
-                    </div>
+        <!-- PELAYANAN PAGE -->
+        <div id="pelayanan" class="page">
+            <section class="hero" style="background: linear-gradient(135deg, #DC241F 0%, #B51C1C 100%);">
+                <div class="hero-content">
+                    <h1>Pelayanan Kami</h1>
+                    <p>Berbagai jenis pelayanan kesehatan berkualitas</p>
+                </div>
+            </section>
 
-                    <div class="form-group">
-                        <label>Kriteria Kebersihan</label>
-                        <div class="criteria-group">
-                            <div class="criteria-item"><input type="checkbox" id="lantai" name="kriteria" value="Lantai" checked> <label for="lantai">Lantai</label></div>
-                            <div class="criteria-item"><input type="checkbox" id="dindingKaca" name="kriteria" value="Dinding/Kaca" checked> <label for="dindingKaca">Dinding/Kaca</label></div>
-                            <div class="criteria-item"><input type="checkbox" id="kamarMandi" name="kriteria" value="Kamar Mandi/WC" checked> <label for="kamarMandi">Kamar Mandi/WC</label></div>
-                            <div class="criteria-item"><input type="checkbox" id="sampah" name="kriteria" value="Tempat Sampah" checked> <label for="sampah">Tempat Sampah</label></div>
-                            <div class="criteria-item"><input type="checkbox" id="peralatan" name="kriteria" value="Peralatan" checked> <label for="peralatan">Peralatan</label></div>
-                            <div class="criteria-item"><input type="checkbox" id="bau" name="kriteria" value="Tidak Bau" checked> <label for="bau">Tidak Bau</label></div>
+            <section class="section">
+                <div class="container">
+                    <h2 class="section-title">Jenis-Jenis Pelayanan</h2>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-icon">🚑</div>
+                            <h3>Gawat Darurat (IGD)</h3>
+                            <p>Pelayanan darurat 24 jam dengan dokter spesialis dan peralatan terkini untuk menangani kasus darurat medis, kecelakaan, dan kondisi gawat lainnya.</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">🏥</div>
+                            <h3>Rawat Inap</h3>
+                            <p>Fasilitas rawat inap dengan berbagai kelas ruangan, perawatan 24 jam, dan dukungan medis lengkap untuk pemulihan optimal pasien.</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">🔬</div>
+                            <h3>Laboratorium Klinis</h3>
+                            <p>Layanan laboratorium dengan teknologi canggih untuk pemeriksaan darah, urine, dan berbagai tes diagnostik lainnya dengan hasil akurat.</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">📋</div>
+                            <h3>Rawat Jalan</h3>
+                            <p>Klinik rawat jalan dengan berbagai spesialisasi dokter untuk konsultasi, diagnosis, dan pengobatan pasien tanpa perlu menginap.</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">👶</div>
+                            <h3>Kebidanan & Kandungan</h3>
+                            <p>Pelayanan lengkap untuk ibu hamil termasuk pemeriksaan rutin, persalinan normal maupun caesar, dan perawatan nifas berkualitas.</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">🧑‍⚕️</div>
+                            <h3>Bedah</h3>
+                            <p>Layanan tindakan bedah dengan dokter bedah berpengalaman, peralatan operasi modern, dan ruang pemulihan yang aman dan nyaman.</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">💊</div>
+                            <h3>Farmasi</h3>
+                            <p>Layanan farmasi dengan persediaan obat lengkap, konsultasi dengan apoteker, dan pengiriman obat ke rumah pasien jika diperlukan.</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">🦷</div>
+                            <h3>Gigi & Mulut</h3>
+                            <p>Layanan kesehatan gigi dengan dokter gigi profesional untuk perawatan gigi, scaling, penambalan, dan pencabutan gigi.</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">👁️</div>
+                            <h3>Mata</h3>
+                            <p>Layanan kesehatan mata dengan dokter spesialis mata untuk pemeriksaan refraksi, operasi katarak, dan pengobatan penyakit mata lainnya.</p>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="skalaPenilaian">Skala Penilaian Keseluruhan</label>
-                        <select id="skalaPenilaian" required>
-                            <option value="">-- Pilih Skala --</option>
-                            <option value="Sangat Baik">Sangat Baik</option>
-                            <option value="Baik">Baik</option>
-                            <option value="Cukup">Cukup</option>
-                            <option value="Kurang">Kurang</option>
-                        </select>
+                    <h2 class="section-title" style="margin-top: 60px;">Prosedur Pelayanan</h2>
+                    <div class="content-box">
+                        <h3>📍 Langkah-Langkah Berobat:</h3>
+                        <ol style="margin-left: 20px; color: var(--text-gray);">
+                            <li>Datang ke rumah sakit dan menuju bagian pendaftaran</li>
+                            <li>Isi formulir pendaftaran dengan data lengkap</li>
+                            <li>Lakukan pembayaran sesuai jenis pelayanan</li>
+                            <li>Tunggu panggilan untuk pemeriksaan</li>
+                            <li>Pemeriksaan oleh dokter atau tenaga medis</li>
+                            <li>Lakukan pengobatan atau rujukan sesuai hasil pemeriksaan</li>
+                            <li>Selesai dan keluar dari rumah sakit</li>
+                        </ol>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="catatan">Catatan / Temuan</label>
-                        <textarea id="catatan" rows="4" placeholder="Masukkan catatan penting atau temuan di lapangan..."></textarea>
-                    </div>
-
-                    <button type="submit">Simpan Laporan</button>
-                </form>
-            </section>
-
-            <!-- --- SEKSI DASHBOARD --- -->
-            <section class="dashboard-section">
-                <h2>Dashboard Data Laporan</h2>
-                
-                <div class="dashboard-controls">
-                    <button id="exportCsvBtn" class="btn-success">Export ke CSV</button>
-                    <button id="importCsvBtn" class="btn-warning">Import dari CSV</button>
-                    <button id="exportJsonBtn" class="btn-info">Export ke JSON</button>
-                    <button id="importJsonBtn" class="btn-info">Import dari JSON</button>
-                    <button id="updateJsonBtn" class="btn-danger">Update dari JSON (Ganti Data)</button>
-                    <button id="printBtn" class="btn-secondary">Cetak Laporan</button>
                 </div>
-
-                <!-- Input file disembunyikan dan dipicu oleh tombol -->
-                <input type="file" id="importCsvFile" accept=".csv" style="display: none;">
-                <input type="file" id="importJsonFile" accept=".json" style="display: none;">
-                <input type="file" id="updateJsonFile" accept=".json" style="display: none;">
-
-                <table id="tabelLaporan">
-                    <thead>
-                        <tr>
-                            <th>Tanggal</th>
-                            <th>Pengawas</th>
-                            <th>Shift</th>
-                            <th>Lokasi</th>
-                            <th>Petugas</th>
-                            <th>Penilaian</th>
-                            <th>Catatan</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody id="dataTabel">
-                        <!-- Data akan dimuat di sini oleh JavaScript -->
-                        <tr>
-                            <td colspan="8" class="no-data">Belum ada data laporan.</td>
-                        </tr>
-                    </tbody>
-                </table>
             </section>
-        </main>
-    </div>
+        </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // --- ELEMEN DOM ---
-        const form = document.getElementById('laporanForm');
-        const tabelBody = document.getElementById('dataTabel');
-        const exportCsvBtn = document.getElementById('exportCsvBtn');
-        const importCsvBtn = document.getElementById('importCsvBtn');
-        const importCsvFile = document.getElementById('importCsvFile');
-        const exportJsonBtn = document.getElementById('exportJsonBtn');
-        const importJsonBtn = document.getElementById('importJsonBtn');
-        const importJsonFile = document.getElementById('importJsonFile');
-        const updateJsonBtn = document.getElementById('updateJsonBtn');
-        const updateJsonFile = document.getElementById('updateJsonFile');
-        const printBtn = document.getElementById('printBtn');
-        const notificationBox = document.getElementById('notificationBox');
-        const tanggalInput = document.getElementById('tanggal');
+        <!-- RUANGAN PAGE -->
+        <div id="ruangan" class="page">
+            <section class="hero" style="background: linear-gradient(135deg, #DC241F 0%, #B51C1C 100%);">
+                <div class="hero-content">
+                    <h1>Ruangan Rawat Inap</h1>
+                    <p>Fasilitas ruangan nyaman dengan standar kesehatan internasional</p>
+                </div>
+            </section>
 
-        // --- KONFIGURASI LOCAL STORAGE ---
-        const LAPORAN_KEY = 'laporanCleaningServiceRSUDTalaud';
+            <section class="section">
+                <div class="container">
+                    <h2 class="section-title">Pilihan Ruangan</h2>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-icon">🛏️</div>
+                            <h3>Ruang ICU</h3>
+                            <p><strong>Harga:</strong> Rp 1.500.000/hari<br><strong>Fasilitas:</strong> Monitoring 24 jam, ventilator, dan peralatan ICU lengkap</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">🛏️</div>
+                            <h3>Ruang Isolasi</h3>
+                            <p><strong>Harga:</strong> Rp 800.000/hari<br><strong>Fasilitas:</strong> Ruangan tertutup, steril, dan pengawasan intensif</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">🛏️</div>
+                            <h3>Ruang VIP</h3>
+                            <p><strong>Harga:</strong> Rp 600.000/hari<br><strong>Fasilitas:</strong> AC, TV, kamar mandi pribadi, dan wifi gratis</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">🛏️</div>
+                            <h3>Ruang Kelas I</h3>
+                            <p><strong>Harga:</strong> Rp 400.000/hari<br><strong>Fasilitas:</strong> AC, tempat tidur nyaman, dan ruang tamu</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">🛏️</div>
+                            <h3>Ruang Kelas II</h3>
+                            <p><strong>Harga:</strong> Rp 250.000/hari<br><strong>Fasilitas:</strong> 2-3 tempat tidur, kamar mandi bersama</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">🛏️</div>
+                            <h3>Ruang Kelas III</h3>
+                            <p><strong>Harga:</strong> Rp 150.000/hari<br><strong>Fasilitas:</strong> 4-6 tempat tidur, fasilitas standar</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
 
-        // --- FUNSI PEMBANTU ---
-        function showNotification(message, type = 'success') {
-            notificationBox.textContent = message;
-            notificationBox.className = `notification ${type}`;
-            notificationBox.style.display = 'block';
-            setTimeout(() => {
-                notificationBox.style.display = 'none';
-            }, 4000);
-        }
+        <!-- FASILITAS PAGE -->
+        <div id="fasilitas" class="page">
+            <section class="hero" style="background: linear-gradient(135deg, #DC241F 0%, #B51C1C 100%);">
+                <div class="hero-content">
+                    <h1>Fasilitas Rumah Sakit</h1>
+                    <p>Peralatan medis modern dan infrastruktur kesehatan terlengkap</p>
+                </div>
+            </section>
 
-        // --- FUNSI UTAMA ---
+            <section class="section">
+                <div class="container">
+                    <h2 class="section-title">Fasilitas & Peralatan Medis</h2>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-icon">🔍</div>
+                            <h3>CT Scan</h3>
+                            <p>Mesin CT Scan multislice untuk imaging diagnostik berkualitas tinggi dengan waktu pemindaian cepat dan detail yang akurat</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">📡</div>
+                            <h3>USG 4D</h3>
+                            <p>Ultrasonografi 4D dimensional untuk visualisasi janin yang lebih baik dan pemeriksaan organ internal dengan presisi tinggi</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">⚕️</div>
+                            <h3>Endoskopi</h3>
+                            <p>Peralatan endoskopi modern untuk pemeriksaan dan tindakan pada saluran pencernaan dengan invasif minimal</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">💉</div>
+                            <h3>Defibrillator</h3>
+                            <p>Alat defibrillator otomatis untuk penanganan henti jantung mendadak dan aritmia jantung berbahaya</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">🫁</div>
+                            <h3>Ventilator</h3>
+                            <p>Mesin ventilator canggih untuk dukungan pernapasan pasien di ICU dan ruang darurat</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">🧬</div>
+                            <h3>Laboratorium Otomatis</h3>
+                            <p>Sistem laboratorium otomatis untuk analisis sampel darah, urine, dan cairan tubuh lainnya dengan akurasi tinggi</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
 
-        // 1. AMBIL DATA DARI LOCAL STORAGE
-        function ambilDataDariStorage() {
-            const data = localStorage.getItem(LAPORAN_KEY);
-            return data ? JSON.parse(data) : [];
-        }
+        <!-- AKREDITASI PAGE -->
+        <div id="akreditasi" class="page">
+            <section class="hero" style="background: linear-gradient(135deg, #DC241F 0%, #B51C1C 100%);">
+                <div class="hero-content">
+                    <h1>Akreditasi & Sertifikasi</h1>
+                    <p>Standar kualitas internasional yang kami miliki</p>
+                </div>
+            </section>
 
-        // 2. SIMPAN DATA KE LOCAL STORAGE
-        function simpanDataKeStorage(data) {
-            localStorage.setItem(LAPORAN_KEY, JSON.stringify(data));
-        }
+            <section class="section">
+                <div class="container">
+                    <h2 class="section-title">Penghargaan & Akreditasi</h2>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-icon">🏆</div>
+                            <h3>Akreditasi Tingkat Lengkap</h3>
+                            <p>Akreditasi dari Komisi Akreditasi Rumah Sakit (KARS) dengan status A untuk standar pelayanan dan manajemen</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">🌟</div>
+                            <h3>ISO 9001:2015</h3>
+                            <p>Sertifikasi ISO untuk sistem manajemen kualitas dalam pengelolaan layanan kesehatan</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">✅</div>
+                            <h3>BNSP Certification</h3>
+                            <p>Sertifikasi dari Badan Nasional Sertifikasi Profesi untuk kompetensi tenaga medis profesional</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">🎖️</div>
+                            <h3>Penghargaan Rumah Sakit Sayang Pasien</h3>
+                            <p>Penghargaan dari Kementerian Kesehatan untuk komitmen pelayanan yang patient-centered</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">🥇</div>
+                            <h3>Penghargaan Layanan Terbaik</h3>
+                            <p>Penghargaan dari Dinas Kesehatan Provinsi untuk inovasi dan keunggulan pelayanan kesehatan</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">📜</div>
+                            <h3>Akreditasi Program Spesialisasi</h3>
+                            <p>Akreditasi dari DIKTI untuk program pendidikan dan pelatihan dokter spesialis di rumah sakit</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
 
-        // 3. TAMPILKAN DATA KE TABEL DASHBOARD
-        function tampilkanData() {
-            const laporan = ambilDataDariStorage();
-            tabelBody.innerHTML = ''; // Kosongkan tabel dulu
+        <!-- KOMITE PAGE -->
+        <div id="komite" class="page">
+            <section class="hero" style="background: linear-gradient(135deg, #DC241F 0%, #B51C1C 100%);">
+                <div class="hero-content">
+                    <h1>Komite & Struktur Organisasi</h1>
+                    <p>Tim profesional yang menggerakkan RSUD Kepulauan Talaud</p>
+                </div>
+            </section>
 
-            if (laporan.length === 0) {
-                tabelBody.innerHTML = '<tr><td colspan="8" class="no-data">Belum ada data laporan.</td></tr>';
-                return;
+            <section class="section">
+                <div class="container">
+                    <h2 class="section-title">Komite-Komite Rumah Sakit</h2>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-icon">👨‍💼</div>
+                            <h3>Komite Medis</h3>
+                            <p><strong>Ketua:</strong> Dr. Bambang Sutrisno, Sp.B<br><strong>Fungsi:</strong> Mengawasi standar pelayanan medis dan pengembangan ilmu medis</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">👩‍⚕️</div>
+                            <h3>Komite Keperawatan</h3>
+                            <p><strong>Ketua:</strong> Lis Nurhayati, S.Kep., M.Kes<br><strong>Fungsi:</strong> Menjaga standar asuhan keperawatan dan pengembangan SDM perawat</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">🔍</div>
+                            <h3>Komite Mutu</h3>
+                            <p><strong>Ketua:</strong> Dr. Siti Nurhaliza, Sp.A<br><strong>Fungsi:</strong> Meningkatkan dan memantau kualitas pelayanan kesehatan</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">⚖️</div>
+                            <h3>Komite Etika</h3>
+                            <p><strong>Ketua:</strong> Dr. Hendra Wijaya<br><strong>Fungsi:</strong> Memastikan penerapan etika medis dan penelitian</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">🛡️</div>
+                            <h3>Komite Patient Safety</h3>
+                            <p><strong>Ketua:</strong> Irawan Gunawan, SKM<br><strong>Fungsi:</strong> Meminimalkan risiko dan meningkatkan keselamatan pasien</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">💰</div>
+                            <h3>Komite Keuangan</h3>
+                            <p><strong>Ketua:</strong> Suryanto, SE<br><strong>Fungsi:</strong> Mengawasi keuangan dan pengelolaan anggaran rumah sakit</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- SURVEY PAGE -->
+        <div id="survey" class="page">
+            <section class="hero" style="background: linear-gradient(135deg, #DC241F 0%, #B51C1C 100%);">
+                <div class="hero-content">
+                    <h1>Survei Kepuasan Pasien</h1>
+                    <p>Masukan Anda sangat berharga untuk kami</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="container">
+                    <h2 class="section-title">Berikan Penilaian Anda</h2>
+                    <div style="max-width: 600px; margin: 0 auto; background-color: var(--light-gray); padding: 40px; border-radius: 8px;">
+                        <form id="surveyForm">
+                            <div class="form-group">
+                                <label for="name">Nama Lengkap *</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="visit-reason">Alasan Kunjungan *</label>
+                                <select id="visit-reason" name="visit-reason" required>
+                                    <option value="">-- Pilih --</option>
+                                    <option value="emergency">Gawat Darurat</option>
+                                    <option value="outpatient">Rawat Jalan</option>
+                                    <option value="inpatient">Rawat Inap</option>
+                                    <option value="other">Lainnya</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Penilaian Pelayanan Medis *</label>
+                                <div class="rating-group">
+                                    <span class="star" onclick="setRating('medical', 1)">★</span>
+                                    <span class="star" onclick="setRating('medical', 2)">★</span>
+                                    <span class="star" onclick="setRating('medical', 3)">★</span>
+                                    <span class="star" onclick="setRating('medical', 4)">★</span>
+                                    <span class="star" onclick="setRating('medical', 5)">★</span>
+                                </div>
+                                <input type="hidden" id="medicalRating" name="medicalRating" value="0">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Penilaian Kebersihan & Kenyamanan *</label>
+                                <div class="rating-group">
+                                    <span class="star" onclick="setRating('cleanliness', 1)">★</span>
+                                    <span class="star" onclick="setRating('cleanliness', 2)">★</span>
+                                    <span class="star" onclick="setRating('cleanliness', 3)">★</span>
+                                    <span class="star" onclick="setRating('cleanliness', 4)">★</span>
+                                    <span class="star" onclick="setRating('cleanliness', 5)">★</span>
+                                </div>
+                                <input type="hidden" id="cleanlinessRating" name="cleanlinessRating" value="0">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Penilaian Keramahan Staf *</label>
+                                <div class="rating-group">
+                                    <span class="star" onclick="setRating('staff', 1)">★</span>
+                                    <span class="star" onclick="setRating('staff', 2)">★</span>
+                                    <span class="star" onclick="setRating('staff', 3)">★</span>
+                                    <span class="star" onclick="setRating('staff', 4)">★</span>
+                                    <span class="star" onclick="setRating('staff', 5)">★</span>
+                                </div>
+                                <input type="hidden" id="staffRating" name="staffRating" value="0">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="suggestions">Saran & Masukan</label>
+                                <textarea id="suggestions" name="suggestions" placeholder="Tulis saran atau masukan Anda di sini..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" style="width: 100%; background-color: var(--primary-red); color: var(--white); margin-top: 20px;">Kirim Survei</button>
+                        </form>
+                    </div>
+
+                    <h2 class="section-title" style="margin-top: 60px;">Statistik Kepuasan Pasien</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">95%</div>
+                            <div class="stat-label">Kepuasan Pelayanan Medis</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">92%</div>
+                            <div class="stat-label">Kebersihan & Kenyamanan</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">94%</div>
+                            <div class="stat-label">Keramahan Staf</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">5/5</div>
+                            <div class="stat-label">Rating Rata-Rata</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Tentang RSUD Talaud</h4>
+                    <p>RSUD Kepulauan Talaud adalah rumah sakit umum daerah terdepan dalam memberikan pelayanan kesehatan berkualitas kepada masyarakat Kepulauan Talaud.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Menu Cepat</h4>
+                    <ul>
+                        <li><a onclick="navigateTo('home')">Beranda</a></li>
+                        <li><a onclick="navigateTo('profil')">Profil</a></li>
+                        <li><a onclick="navigateTo('pelayanan')">Pelayanan</a></li>
+                        <li><a onclick="navigateTo('survey')">Survey</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Kontak</h4>
+                    <p>Jl. Kesehatan No. 1<br>Kepulauan Talaud<br>Sulawesi Utara</p>
+                    <p>Telp: (0438) 321-456<br>Email: info@rsudt.go.id</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Jam Operasional</h4>
+                    <p><strong>Layanan Darurat:</strong><br>24 Jam / 7 Hari</p>
+                    <p><strong>Klinik:</strong><br>08:00 - 20:00 WIT</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 RSUD Kepulauan Talaud. Semua hak dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation
+        function navigateTo(page) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(p => p.classList.remove('active'));
+
+            // Show selected page
+            const selectedPage = document.getElementById(page);
+            if (selectedPage) {
+                selectedPage.classList.add('active');
+                window.scrollTo(0, 0);
             }
 
-            // Urutkan data dari yang terbaru
-            laporan.sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
+            // Update active nav link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            const activeLink = document.querySelector(`[onclick="navigateTo('${page}')"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
 
-            laporan.forEach((item, index) => {
-                const baris = document.createElement('tr');
-                baris.innerHTML = `
-                    <td>${item.tanggal}</td>
-                    <td>${item.namaPengawas}</td>
-                    <td>${item.shift}</td>
-                    <td>${item.lokasi}</td>
-                    <td>${item.namaPetugas}</td>
-                    <td>${item.skalaPenilaian}</td>
-                    <td>${item.catatan}</td>
-                    <td><button class="btn-danger" onclick="hapusData(${index})">Hapus</button></td>
-                `;
-                tabelBody.appendChild(baris);
+        // Rating System
+        let ratings = {
+            medical: 0,
+            cleanliness: 0,
+            staff: 0
+        };
+
+        function setRating(type, value) {
+            ratings[type] = value;
+            document.getElementById(type + 'Rating').value = value;
+            
+            const stars = document.querySelectorAll(`[onclick*="setRating('${type}'"]`);
+            stars.forEach((star, index) => {
+                if (index < value) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
             });
         }
 
-        // 4. HAPUS DATA
-        function hapusData(index) {
-            if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
-                let laporan = ambilDataDariStorage();
-                laporan.splice(index, 1);
-                simpanDataKeStorage(laporan);
-                tampilkanData();
-                showNotification('Data berhasil dihapus.', 'success');
-            }
-        }
-        window.hapusData = hapusData;
-
-        // 5. EXPORT DATA KE CSV
-        function exportToCSV() {
-            const laporan = ambilDataDariStorage();
-            if (laporan.length === 0) {
-                showNotification('Tidak ada data untuk diekspor.', 'error');
-                return;
-            }
-            const headers = ['Tanggal', 'Nama Pengawas', 'Shift', 'Lokasi', 'Nama Petugas', 'Kriteria', 'Skala Penilaian', 'Catatan'];
-            const rows = laporan.map(item => [
-                item.tanggal, item.namaPengawas, item.shift, item.lokasi, item.namaPetugas,
-                `"${item.kriteria.join('; ')}"`, // Gabungkan kriteria dengan ;
-                item.skalaPenilaian,
-                `"${item.catatan.replace(/"/g, '""')}"` // Escape double quotes
-            ]);
-            let csvContent = headers.join(',') + '\n' + rows.map(e => e.join(',')).join('\n');
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement('a');
-            const url = URL.createObjectURL(blob);
-            link.setAttribute('href', url);
-            link.setAttribute('download', `laporan_cleaning_service_${new Date().toISOString().split('T')[0]}.csv`);
-            link.style.visibility = 'hidden';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            showNotification('Data berhasil diekspor ke file CSV.', 'success');
-        }
-
-        // 6. IMPORT DATA DARI CSV
-        function importFromCSV(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const text = e.target.result;
-                    const lines = text.split('\n');
-                    const newLaporan = [];
-                    for (let i = 1; i < lines.length; i++) {
-                        const line = lines[i].trim();
-                        if (line) {
-                            const values = [];
-                            let current = ''; let inQuotes = false;
-                            for (let char of line) {
-                                if (char === '"' && (inQuotes || current === '')) { inQuotes = !inQuotes; }
-                                else if (char === ',' && !inQuotes) { values.push(current.trim()); current = ''; }
-                                else { current += char; }
-                            }
-                            values.push(current.trim());
-                            if (values.length >= 8) {
-                                const kriteriaString = values[5].replace(/^"|"$/g, '');
-                                const kriteriaArray = kriteriaString.split(';').map(k => k.trim());
-                                newLaporan.push({
-                                    tanggal: values[0], namaPengawas: values[1], shift: values[2], lokasi: values[3],
-                                    namaPetugas: values[4], kriteria: kriteriaArray, skalaPenilaian: values[6],
-                                    catatan: values[7].replace(/^"|"$/g, '').replace(/""/g, '"')
-                                });
-                            }
-                        }
-                    }
-                    if (newLaporan.length > 0) {
-                        const existingLaporan = ambilDataDariStorage();
-                        const combinedLaporan = [...existingLaporan, ...newLaporan];
-                        simpanDataKeStorage(combinedLaporan);
-                        tampilkanData();
-                        showNotification(`${newLaporan.length} data berhasil diimpor dari CSV.`, 'success');
-                    } else {
-                        showNotification('File CSV tidak valid atau tidak mengandung data.', 'error');
-                    }
-                } catch (error) {
-                    showNotification('Gagal memproses file CSV. Pastikan formatnya benar.', 'error');
-                }
-            };
-            reader.readAsText(file);
-            importCsvFile.value = '';
-        }
-
-        //7. EXPORT DATA KE JSON
-        function exportToJSON() {
-            const laporan = ambilDataDariStorage();
-            if (laporan.length === 0) {
-                showNotification('Tidak ada data untuk diekspor.', 'error');
-                return;
-            }
-            const dataStr = JSON.stringify(laporan, null, 2); // Pretty-print JSON
-            const blob = new Blob([dataStr], { type: 'application/json' });
-            const link = document.createElement('a');
-            const url = URL.createObjectURL(blob);
-            link.setAttribute('href', url);
-            link.setAttribute('download', `laporan_cleaning_service_${new Date().toISOString().split('T')[0]}.json`);
-            link.style.visibility = 'hidden';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            showNotification('Data berhasil diekspor ke file JSON.', 'success');
-        }
-
-        // 8. IMPORT DATA DARI JSON (FITUR LAMA)
-        function importFromJSON(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const importedData = JSON.parse(e.target.result);
-                    
-                    if (!Array.isArray(importedData)) {
-                        throw new Error("File JSON tidak berisi array data.");
-                    }
-
-                    if (importedData.length > 0) {
-                        const existingLaporan = ambilDataDariStorage();
-                        const combinedLaporan = [...existingLaporan, ...importedData];
-                        simpanDataKeStorage(combinedLaporan);
-                        tampilkanData();
-                        showNotification(`${importedData.length} data berhasil diimpor dan digabungkan.`, 'success');
-                    } else {
-                        showNotification('File JSON kosong.', 'error');
-                    }
-                } catch (error) {
-                    console.error(error);
-                    showNotification('Gagal memproses file JSON. Pastikan file valid dan berisi data laporan.', 'error');
-                }
-            };
-            reader.readAsText(file);
-            importJsonFile.value = ''; // Reset input
-        }
-
-        // 9. FITUR UPDATE DATA DARI JSON (GANTI)
-        function updateFromJSON(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const isConfirmed = confirm('PERINGATAN: Tindakan ini akan mengganti SELURUH data laporan yang ada dengan data dari file ini. Data lama yang tidak ada di file akan HILANG. Apakah Anda yakin?');
-            if (!isConfirmed) {
-                updateJsonFile.value = ''; // Reset input jika batal
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const importedData = JSON.parse(e.target.result);
-                    
-                    if (!Array.isArray(importedData)) {
-                        throw new Error("File JSON tidak berisi array data.");
-                    }
-
-                    simpanDataKeStorage(importedData);
-                    tampilkanData();
-                    showNotification(`Data berhasil diperbarui. Sekarang terdapat ${importedData.length} laporan aktif.`, 'success');
-
-                } catch (error) {
-                    console.error(error);
-                    showNotification('Gagal memproses file JSON. Pastikan file valid dan berisi data laporan.', 'error');
-                }
-            };
-            reader.readAsText(file);
-            updateJsonFile.value = ''; // Reset input
-        }
-
-
-        // --- EVENT LISTENER ---
-        form.addEventListener('submit', (e) => {
+        // Survey Form Submission
+        document.getElementById('surveyForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const kriteriaTerpilih = Array.from(document.querySelectorAll('input[name="kriteria"]:checked')).map(cb => cb.value);
-            const laporanBaru = {
-                tanggal: tanggalInput.value,
-                namaPengawas: document.getElementById('namaPengawas').value,
-                shift: document.getElementById('shift').value,
-                lokasi: document.getElementById('lokasi').value,
-                namaPetugas: document.getElementById('namaPetugas').value,
-                kriteria: kriteriaTerpilih,
-                skalaPenilaian: document.getElementById('skalaPenilaian').value,
-                catatan: document.getElementById('catatan').value,
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const visitReason = document.getElementById('visit-reason').value;
+            const suggestions = document.getElementById('suggestions').value;
+
+            if (!ratings.medical || !ratings.cleanliness || !ratings.staff) {
+                alert('Mohon lengkapi semua penilaian bintang!');
+                return;
+            }
+
+            const surveyData = {
+                name,
+                email,
+                visitReason,
+                medicalRating: ratings.medical,
+                cleanlinessRating: ratings.cleanliness,
+                staffRating: ratings.staff,
+                suggestions,
+                date: new Date().toLocaleString('id-ID')
             };
-            const laporan = ambilDataDariStorage();
-            laporan.push(laporanBaru);
-            simpanDataKeStorage(laporan);
-            tampilkanData();
-            form.reset();
-            // Reset nilai default setelah submit
-            document.getElementById('namaPengawas').value = 'Jhosua V. Malendes';
-            tanggalInput.valueAsDate = new Date();
-            showNotification('Laporan berhasil disimpan!', 'success');
+
+            console.log('Survey Data:', surveyData);
+            alert('Terima kasih! Survei Anda telah kami terima dan akan membantu kami meningkatkan pelayanan.');
+            
+            this.reset();
+            ratings = { medical: 0, cleanliness: 0, staff: 0 };
+            document.querySelectorAll('.star').forEach(star => star.classList.remove('active'));
         });
 
-        exportCsvBtn.addEventListener('click', exportToCSV);
-        importCsvBtn.addEventListener('click', () => importCsvFile.click());
-        importCsvFile.addEventListener('change', importFromCSV);
-        
-        // Event Listener untuk JSON
-        exportJsonBtn.addEventListener('click', exportToJSON);
-        importJsonBtn.addEventListener('click', () => importJsonFile.click());
-        importJsonFile.addEventListener('change', importFromJSON);
-
-        // EVENT LISTENER UNTUK FITUR UPDATE
-        updateJsonBtn.addEventListener('click', () => updateJsonFile.click());
-        updateJsonFile.addEventListener('change', updateFromJSON);
-
-        // EVENT LISTENER UNTUK FITUR PRINT
-        printBtn.addEventListener('click', () => {
-            window.print();
+        // Set home page as default
+        window.addEventListener('load', function() {
+            navigateTo('home');
         });
-
-        // --- INISIALISASI ---
-        tanggalInput.valueAsDate = new Date();
-        tampilkanData();
-    });
-</script>
-
+    </script>
 </body>
 </html>
